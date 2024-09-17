@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @job_offer %>
+
+<% if user_signed_in? %>
+  <%= button_to 'Apply for this job', apply_job_offer_path(@job_offer), method: :get%>
+<% else %>
+  <%= link_to 'Log in to apply', new_user_session_path %>
+<% end %>
+
+<div>
+  <%= link_to "Edit this job offer", edit_job_offer_path(@job_offer) %> |
+  <%= link_to "Back to job offers", job_offers_path %>
+
+  <%= button_to "Destroy this job offer", @job_offer, method: :delete %>
+</div>

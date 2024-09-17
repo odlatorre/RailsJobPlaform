@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Job offers" %>
+
+<h1>Job offers</h1>
+
+<div id="job_offers">
+  <% @job_offers.each do |job_offer| %>
+    <%= render job_offer %>
+    <p>
+      <%= link_to "Show this job offer", job_offer %>
+    </p>
+  <% end %>
+</div>
+
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to 'New Job Offer', new_job_offer_path, class: 'btn btn-primary' %>
+<% end %>
+
+
+<!-- app/views/job_offers/index.html.erb -->
+
+
+
+
+

@@ -62,3 +62,5 @@ end
 gem "figaro", "~> 1.2"
 
 gem "devise", "~> 4.9"
+gem 'image_processing'
+gem 'aws-sdk-s3', '~> 1.48'
