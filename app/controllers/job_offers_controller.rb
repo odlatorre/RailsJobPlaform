@@ -1,8 +1,7 @@
 class JobOffersController < ApplicationController
-  before_action :set_job_offer, only: %i[show edit update destroy apply]
+ # before_action :set_job_offer, only: %i[show edit update destroy apply]
   before_action :authenticate_user!
   before_action :authorize_admin, only: %i[new create edit update destroy]
-
   # GET /job_offers or /job_offers.json
   def index
     @job_offers = JobOffer.all
@@ -10,6 +9,7 @@ class JobOffersController < ApplicationController
 
   # GET /job_offers/1 or /job_offers/1.json
   def show
+    @job_offer = JobOffer.find(params[:id])
   end
 
   # GET /job_offers/new
@@ -61,19 +61,28 @@ class JobOffersController < ApplicationController
     end
   end
 
- def apply
+def apply
   if user_signed_in?
-    # Check if the application already exists
+    # Busca la oferta de trabajo utilizando el ID de los parámetros
+    @job_offer = JobOffer.find_by(id: params[:id])
+
+    if @job_offer.nil?
+      redirect_to job_offers_path, alert: 'Job offer not found.'
+      return
+    end
+
+    # Verifica si la aplicación ya existe
     existing_application = Application.find_by(user: current_user, job_offer: @job_offer)
-    
+
     if existing_application
-      # Redirect with an alert if the user has already applied
+      # Redirige con un aviso si el usuario ya ha aplicado
       redirect_to @job_offer, alert: 'You have already applied to this job offer.'
     else
       @job_application = Application.new(user: current_user, job_offer: @job_offer)
-      
+
       if @job_application.save
-        redirect_to @job_offer, notice: 'Successfully applied to the job offer.'
+        ApplicationsMailer.application_notification(@job_application.application).deliver_now # Envía la notificación al admin
+        redirect_to @application, notice: 'Aplicación enviada con éxito.'
       else
         redirect_to @job_offer, alert: 'Failed to apply to the job offer.'
       end
@@ -83,14 +92,18 @@ class JobOffersController < ApplicationController
   end
 end
 
+
+
   # Ensure only admin users can access certain actions
-  def authorize_admin
-    unless current_user.admin?
-      redirect_to root_path, alert: 'You are not authorized to access this page.'
-    end
-  end
+
 
   private
+
+  def authorize_admin
+    unless user_signed_in? && current_user.role == 'admin' # O lo que sea que uses para verificar el rol
+      redirect_to root_path, alert: 'Access denied. Admins only.'
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_job_offer

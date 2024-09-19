@@ -1,9 +1,31 @@
+ <% if user_signed_in? %>
+<p>Bienvenido, <%= current_user.name %>!</p>
+
+<% if user_signed_in? && current_user.profile_image.attached? %>
+  <%= image_tag current_user.profile_image, alt: "Imagen de perfil", class: "profile-picture" %>
+<% else %>
+  <p>No tienes una imagen de perfil.</p>
+<% end %>
+
+
+
+<% else %>
 <h1>RailsJobPlataform</h1>
 <p>¡Bienvenido a RailsJobPlataform!</p>
-<p>Para postularte a nuestras ofertas de empleo, por favor inicia sesión en tu cuenta.
-¡Esperamos tu candidatura!</p>
-<p>Saludos,</p>
-<p>El equipo de RailsJobPlataform</p>
+
+<%= image_tag 'images.jpeg', alt: 'Descripción de la imagen', class: 'mi-clase' %>
+
+
+<p style ="margin-top:1rem;">Para postularte a nuestras ofertas de empleo, por favor inicia sesión en tu cuenta.</p>
+
+<p><%= link_to 'Iniciar Sesión', new_user_session_path, class: 'nav-link' %></p>
+
+ <% end %>
+
+
+
+
+
 
 
 

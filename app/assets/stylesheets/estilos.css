@@ -1,6 +1,6 @@
 /* Ejemplo de estilo para la imagen de perfil */
 img.profile-picture {
-  width: 30px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 }

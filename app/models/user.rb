@@ -7,7 +7,6 @@ class User < ApplicationRecord
   has_many :job_offers
   has_many :applications
   def admin?
-    role == 'admin'
+    role = "admin"
   end
-
 end

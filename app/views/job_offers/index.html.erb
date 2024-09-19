@@ -2,6 +2,18 @@
 
 <% content_for :title, "Job offers" %>
 
+ <% if user_signed_in? %>
+<p>Bienvenido, <%= current_user.name %>!</p>
+
+<% if user_signed_in? && current_user.profile_image.attached? %>
+  <%= image_tag current_user.profile_image, alt: "Imagen de perfil", class: "profile-picture" %>
+<% else %>
+  <p>No tienes una imagen de perfil.</p>
+<% end %>
+<p style="margin-top:1rem;"> Por favor ingresar a la oferta Laboral que desea postular</p>
+<% end %>
+
+
 <h1>Job offers</h1>
 
 <div id="job_offers">

@@ -1,9 +1,10 @@
 class ApplicationsController < ApplicationController
   before_action :set_application, only: %i[ show edit update destroy ]
 
+
   # GET /applications or /applications.json
   def index
-    @applications = Application.all
+    @applications = current_user.applications.includes(:job_offer) # Obtén las aplicaciones del usuario actual
   end
 
   # GET /applications/1 or /applications/1.json
@@ -71,4 +72,6 @@ class ApplicationsController < ApplicationController
     def application_params
       params.require(:application).permit(:job_offer_id)
     end
+
+
 end

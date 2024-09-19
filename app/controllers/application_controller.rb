@@ -14,4 +14,9 @@ class ApplicationController < ActionController::Base
      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role, :bio, :profile_image])
      devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role, :bio, :profile_image])
   end
+  def authorize_request(kind = nil)
+    unless kind.include?(current_user.role)
+      redirect_to root_path, notice: "You are not authorized to perform this action"
+    end
+  end
 end

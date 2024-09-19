@@ -1,20 +1,26 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: <%= ENV['POSTGRESQL_USERNAME'] %>
-  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
-  host: <%= ENV['POSTGRESQL_HOST'] %>
-  port: <%= ENV['POSTGRESQL_PORT'].to_i %>  # Convierte a entero si es neces
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
 development:
   <<: *default
   database: rails_job_plataform_development
-  username: <%= ENV['POSTGRESQL_USERNAME'] %>
-  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
-  host: <%= ENV['POSTGRESQL_HOST'] %>
-  port: <%= ENV['POSTGRESQL_PORT'] %>
+  username: vagrant
+  password: ror2024
+  host: localhost
+  port: 5432
+
+test:
+  <<: *default
+  database: rails_job_plataform_development
+  username: vagrant
+  password: ror2024
+  host: localhost
+  port: 5432
+
 production:
-  username: <%= ENV['POSTGRESQL_USERNAME'] %>
-  password: <%= ENV['POSTGRESQL_PASSWORD'] %>
-  host: <%= ENV['POSTGRESQL_HOST'] %>
-  port: <%= ENV['POSTGRESQL_PORT'] %>
+  <<: *default
+  database: rails_job_plataform_development
+  username: rails_job_plataform
+  password: <%= ENV["JOB_PLATFORM_DATABASE_PASSWORD"] %>

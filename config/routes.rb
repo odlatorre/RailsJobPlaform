@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     end
   end
   get "pages/index"
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
     # Rutas para el perfil del usuario
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
