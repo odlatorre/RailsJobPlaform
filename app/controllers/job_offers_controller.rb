@@ -81,7 +81,7 @@ def apply
       @job_application = Application.new(user: current_user, job_offer: @job_offer)
 
       if @job_application.save
-        ApplicationsMailer.application_notification(@job_application.application).deliver_now # Envía la notificación al admin
+        #ApplicationsMailer.application_notification(@job_application.application).deliver_now # Envía la notificación al admin
         redirect_to @application, notice: 'Aplicación enviada con éxito.'
       else
         redirect_to @job_offer, alert: 'Failed to apply to the job offer.'
@@ -101,7 +101,7 @@ end
 
   def authorize_admin
     unless user_signed_in? && current_user.role == 'admin' # O lo que sea que uses para verificar el rol
-      redirect_to root_path, alert: 'Access denied. Admins only.'
+      redirect_to root_path, alert: 'Acceso denegado , solo usuarios Administradores'
     end
   end
 
