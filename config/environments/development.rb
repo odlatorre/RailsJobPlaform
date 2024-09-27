@@ -42,10 +42,11 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+# Looking to send emails in production? Check out our Email API/SMTP product!
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-  user_name: '017242c8608d90',
-  password: '5877cb5fe4652d',
+  user_name: 'fb0c13bc222772',
+  password: '2812425af25af0',
   address: 'sandbox.smtp.mailtrap.io',
   host: 'sandbox.smtp.mailtrap.io',
   port: '2525',

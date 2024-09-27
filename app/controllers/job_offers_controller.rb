@@ -81,8 +81,9 @@ def apply
       @job_application = Application.new(user: current_user, job_offer: @job_offer)
 
       if @job_application.save
+        UserMailer.with(user: current_user).welcome_email.deliver_now
         #ApplicationsMailer.application_notification(@job_application.application).deliver_now # Envía la notificación al admin
-        redirect_to @application, notice: 'Aplicación enviada con éxito.'
+        redirect_to applications_path, notice: 'Aplicación enviada con éxito.'
       else
         redirect_to @job_offer, alert: 'Failed to apply to the job offer.'
       end
