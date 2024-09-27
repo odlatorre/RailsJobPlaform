@@ -3,13 +3,13 @@ class ApplicationsController < ApplicationController
 
 
   # GET /applications or /applications.json
-  def index
-    @applications = current_user.applications.includes(:job_offer) # Obtén las aplicaciones del usuario actual
+def index
+  if current_user
+    @applications = current_user.applications.includes(:job_offer)
+  else
+    redirect_to new_user_session_path, alert: "Please log in to view your applications."
   end
-
-  # GET /applications/1 or /applications/1.json
-  def show
-  end
+end
 
   # GET /applications/new
   def new
